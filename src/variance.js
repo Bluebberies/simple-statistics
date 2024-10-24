@@ -19,9 +19,20 @@ function variance(x) {
         throw new Error("variance requires at least one data point");
     }
 
+    // Parse all values to numbers, throw error if any value is not parsable
+    const parsedX = x.map((num) => {
+        const parsedNum = Number.parseFloat(num);
+        if (Number.isNaN(parsedNum)) {
+            throw new Error(
+                "All elements in the array must be numbers or parsable to numbers."
+            );
+        }
+        return parsedNum;
+    });
+
     // Find the mean of squared deviations between the
     // mean value and each value.
-    return sumNthPowerDeviations(x, 2) / x.length;
+    return sumNthPowerDeviations(parsedX, 2) / parsedX.length;
 }
 
 export default variance;

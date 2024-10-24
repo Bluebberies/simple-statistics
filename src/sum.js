@@ -22,8 +22,19 @@ function sum(x) {
         return 0;
     }
 
+    // Parse all values to numbers, throw error if any value is not parsable
+    const parsedX = x.map((num) => {
+        const parsedNum = Number.parseFloat(num);
+        if (Number.isNaN(parsedNum)) {
+            throw new Error(
+                "All elements in the array must be numbers or parsable to numbers."
+            );
+        }
+        return parsedNum;
+    });
+
     // Initializing the sum as the first number in the array
-    let sum = x[0];
+    let sum = parsedX[0];
 
     // Keeping track of the floating-point error correction
     let correction = 0;
@@ -34,18 +45,18 @@ function sum(x) {
         return Number.NaN;
     }
 
-    for (let i = 1; i < x.length; i++) {
-        if (typeof x[i] !== "number") {
+    for (let i = 1; i < parsedX.length; i++) {
+        if (typeof parsedX[i] !== "number") {
             return Number.NaN;
         }
-        transition = sum + x[i];
+        transition = sum + parsedX[i];
 
         // Here we need to update the correction in a different fashion
         // if the new absolute value is greater than the absolute sum
-        if (Math.abs(sum) >= Math.abs(x[i])) {
-            correction += sum - transition + x[i];
+        if (Math.abs(sum) >= Math.abs(parsedX[i])) {
+            correction += sum - transition + parsedX[i];
         } else {
-            correction += x[i] - transition + sum;
+            correction += parsedX[i] - transition + sum;
         }
 
         sum = transition;
