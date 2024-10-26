@@ -13,8 +13,9 @@ test("zScore", function (t) {
 
 test("variance", function (t) {
     t.equal(ss.variance([1, "2", 3, "4", 5, "6"]), 2.9166666666666665); // Strings that can be parsed to numbers
-    t.throws(() => ss.variance([]), {
-        message: "variance requires at least one data point"
+    t.throws(() => ss.variance([() => {}]), {
+        message:
+            "All elements in the array must be numbers or parsable to numbers."
     });
     t.throws(() => ss.variance([78, "hello", 82]), {
         message:
