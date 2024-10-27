@@ -22,6 +22,16 @@
  * zScore(78, 80, 5); // => -0.4
  */
 function zScore(x, mean, standardDeviation) {
+    if (
+        typeof x !== "number" ||
+        typeof mean !== "number" ||
+        typeof standardDeviation !== "number"
+    ) {
+        throw new Error("All parameters must be numbers.");
+    }
+    if (standardDeviation === 0) {
+        throw new Error("Standard deviation cannot be zero.");
+    }
     return (x - mean) / standardDeviation;
 }
 
